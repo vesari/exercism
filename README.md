@@ -1,3 +1,3 @@
 # Exercism Exercises
-This is a repository of Exercism exercices, each contained in its corresponding
+This is a repository of Exercism exercises, each contained in its corresponding
 directory.
