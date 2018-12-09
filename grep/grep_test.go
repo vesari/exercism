@@ -62,6 +62,7 @@ func TestSearch(t *testing.T) {
 	defer deleteFiles(files)
 
 	for _, tc := range testCases {
+
 		actual := Search(tc.pattern, tc.flags, tc.files)
 		if !reflect.DeepEqual(actual, tc.expected) {
 			t.Fatalf("FAIL: %s\nSearch for pattern %q\nexpected %v\nactual %v.",
