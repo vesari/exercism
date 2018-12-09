@@ -14,6 +14,7 @@ func Search(pattern string, flags []string, files []string) []string {
 	nFlagEnabled := false
 	lFlagEnabled := false
 	iFlagEnabled := false
+	xFlagEnabled := false
 	for _, flag := range flags {
 		if flag == "-n" {
 			nFlagEnabled = true
@@ -24,6 +25,9 @@ func Search(pattern string, flags []string, files []string) []string {
 		if flag == "-i" {
 			iFlagEnabled = true
 		}
+		if flag == "-x" {
+			xFlagEnabled = true
+		}
 	}
 
 	if iFlagEnabled {
@@ -31,7 +35,6 @@ func Search(pattern string, flags []string, files []string) []string {
 	}
 	re := regexp.MustCompile(pattern)
 
-	// fmt.Printf("Length of file: %v\n", len(files))
 	for _, fileName := range files {
 		content, err := ioutil.ReadFile(fileName)
 		if err != nil {
@@ -46,10 +49,14 @@ func Search(pattern string, flags []string, files []string) []string {
 				lineToMatch = strings.ToLower(line)
 			}
 			a := re.FindString(lineToMatch)
-			if a != "" {
+			isMatch := a != ""
+			if xFlagEnabled && len(a) != len(lineToMatch) {
+				isMatch = false
+
+			}
+			if isMatch {
 				if lFlagEnabled {
 					lineMatches = append(lineMatches, fileName)
-
 				} else {
 					prefix := ""
 					if nFlagEnabled {
