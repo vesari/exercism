@@ -106,7 +106,7 @@ func TestKeepStrings(t *testing.T) {
 	want := Strings{"zebra", "zombies", "zealot"}
 
 	cp := append(Strings{}, list...) // make copy, as with TestInts
-	switch res := cp.Keep(zword); {
+	switch res := cp.KeepStrings(zword); {
 	case !reflect.DeepEqual(cp, list):
 		t.Fatalf("%#v.Keep() should not modify its receiver.  "+
 			"Found %#v, receiver should stay %#v",
@@ -141,7 +141,7 @@ func TestKeepLists(t *testing.T) {
 		{1, 2, 5},
 	}
 	cp := append(Lists{}, list...)
-	switch res := cp.Keep(has5); {
+	switch res := cp.KeepLists(has5); {
 	case !reflect.DeepEqual(cp, list):
 		t.Fatalf("%#v.Keep() should not modify its receiver.  "+
 			"Found %#v, receiver should stay %#v",
